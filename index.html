@@ -23,33 +23,35 @@
 
     .card {
       background: white;
-      padding: 35px 25px;
+      padding: 30px 25px;
       border-radius: 24px;
       box-shadow: 0 12px 30px rgba(255, 182, 193, 0.3);
       text-align: center;
       width: 100%;
       max-width: 420px;
       position: relative;
-      transition: all 0.3s ease;
     }
 
-    .icon {
-      font-size: 50px;
+    /* 이미지 스타일 */
+    .step-img {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 20px;
       margin-bottom: 15px;
-      display: inline-block;
-      animation: pulse 1.5s infinite;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
     }
 
     h1 {
-      font-size: 22px;
+      font-size: 20px;
       color: #2c2c2c;
-      margin: 0 0 10px 0;
+      margin: 0 0 8px 0;
       word-break: keep-all;
       line-height: 1.4;
     }
@@ -57,14 +59,14 @@
     p.subtitle {
       font-size: 14px;
       color: #777;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
     }
 
     .btn-group {
       display: flex;
       justify-content: center;
       gap: 15px;
-      margin-top: 20px;
+      margin-top: 15px;
       position: relative;
       min-height: 50px;
     }
@@ -72,15 +74,10 @@
     button {
       font-size: 16px;
       font-weight: 600;
-      padding: 14px 28px;
+      padding: 12px 24px;
       border: none;
       border-radius: 14px;
       cursor: pointer;
-      transition: transform 0.1s ease, background-color 0.2s ease;
-    }
-
-    button:active {
-      transform: scale(0.96);
     }
 
     #yesBtn, .primary-btn {
@@ -90,9 +87,7 @@
       width: 100%;
     }
 
-    #yesBtn {
-      width: auto;
-    }
+    #yesBtn { width: auto; }
 
     #noBtn {
       background-color: #f0f0f0;
@@ -103,10 +98,7 @@
       transition: all 0.15s ease-out;
     }
 
-    .step {
-      display: none;
-    }
-
+    .step { display: none; }
     .step.active {
       display: block;
       animation: fadeIn 0.4s ease-in-out;
@@ -119,7 +111,7 @@
 
     .form-group {
       text-align: left;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     label {
@@ -130,23 +122,24 @@
       margin-bottom: 8px;
     }
 
-    input[type="date"],
-    input[type="time"],
-    input[type="text"] {
+    /* 시간 선택 (오전/오후 + 시:분) 스타일 */
+    .time-picker {
+      display: flex;
+      gap: 8px;
+    }
+
+    select, input[type="date"], input[type="time"], input[type="text"] {
       width: 100%;
-      padding: 12px 15px;
+      padding: 12px;
       border: 1.5px solid #eee;
       border-radius: 12px;
       font-size: 15px;
       outline: none;
-      transition: border-color 0.2s;
+      background: white;
     }
 
-    input[type="date"]:focus,
-    input[type="time"]:focus,
-    input[type="text"]:focus {
-      border-color: #ff4d6d;
-    }
+    select { width: 35%; cursor: pointer; }
+    input[type="time"] { width: 65%; }
 
     .checkbox-grid {
       display: grid;
@@ -165,12 +158,9 @@
       font-size: 13px;
       color: #444;
       cursor: pointer;
-      transition: all 0.2s;
     }
 
-    .checkbox-btn input {
-      accent-color: #ff4d6d;
-    }
+    .checkbox-btn input { accent-color: #ff4d6d; }
 
     .summary-box {
       background: #fff8f9;
@@ -178,20 +168,16 @@
       border-radius: 16px;
       padding: 20px;
       text-align: left;
-      margin: 20px 0;
+      margin: 15px 0;
     }
 
     .summary-item {
       font-size: 15px;
       color: #444;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
       gap: 10px;
-    }
-
-    .summary-item:last-child {
-      margin-bottom: 0;
     }
 
     .summary-item span.label {
@@ -203,7 +189,7 @@
     .notice {
       font-size: 12px;
       color: #888;
-      margin-top: 15px;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -211,10 +197,12 @@
 
   <div class="card">
 
-    <!-- STEP 1: 고백 및 아니오 도망치기 -->
+    <!-- STEP 1: 데이트 신청 -->
     <div id="step1" class="step active">
-      <div class="icon">💖</div>
-      <h1>나랑 데이트해 줄 거야?</h1>
+      <!-- 1. 처음 데이트 신청 시 튀어나오는 사진 -->
+      <img id="mainImg" src="" alt="데이트 신청 사진" class="step-img">
+      
+      <h1>나랑 데이트해 줄 거야? ❤️</h1>
       <p class="subtitle">선택의 여지는 없지만 골라봐!</p>
       
       <div class="btn-group">
@@ -223,10 +211,12 @@
       </div>
     </div>
 
-    <!-- STEP 2: 날짜 및 코스 선택 -->
+    <!-- STEP 2: 날짜 & 시간(오전/오후) 선택 -->
     <div id="step2" class="step">
-      <div class="icon">📅</div>
-      <h1>야호! 데이트 일정 정하자!</h1>
+      <!-- 2. 데이트 승낙 후 세부 일정 정할 때 나오는 사진 -->
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExODlhZnAxcTBscTVvZHB4bXJwbHN2ZzhkYXdqbzByd3ByZWtwYXR5ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif" alt="좋아하는 사진" class="step-img">
+      
+      <h1>야호! 데이트 일정 정하자! 🎉</h1>
       <p class="subtitle">원하는 날짜와 하고 싶은 걸 알려줘</p>
 
       <form id="dateForm">
@@ -236,8 +226,14 @@
         </div>
 
         <div class="form-group">
-          <label for="timeInput">⏰ 만나고 싶은 시간</label>
-          <input type="time" id="timeInput" value="12:00" required>
+          <label>⏰ 만나고 싶은 시간</label>
+          <div class="time-picker">
+            <select id="ampm">
+              <option value="오전">오전</option>
+              <option value="오후" selected>오후</option>
+            </select>
+            <input type="time" id="timeInput" value="01:00" required>
+          </div>
         </div>
 
         <div class="form-group">
@@ -245,8 +241,8 @@
           <div class="checkbox-grid">
             <label class="checkbox-btn"><input type="checkbox" name="activity" value="맛있는 음식 먹기 🍝" checked> 맛집 탐방</label>
             <label class="checkbox-btn"><input type="checkbox" name="activity" value="영화/전시회 보기 🎬"> 영화/전시</label>
-            <label class="checkbox-btn"><input type="checkbox" name="activity" value="카페 가기 ☕"> 카페 투어</label>
-            <label class="checkbox-btn"><input type="checkbox" name="activity" value="피시방/산책 🌲"> 피시방</label>
+            <label class="checkbox-btn"><input type="checkbox" name="activity" value="예쁜 카페 가기 ☕"> 카페 투어</label>
+            <label class="checkbox-btn"><input type="checkbox" name="activity" value="드라이브/산책 🚗"> 드라이브</label>
           </div>
         </div>
 
@@ -259,11 +255,13 @@
       </form>
     </div>
 
-    <!-- STEP 3: 약속 확정 완료 -->
+    <!-- STEP 3: 최종 약속 확정 -->
     <div id="step3" class="step">
-      <div class="icon">🎉</div>
-      <h1>데이트 약속 신청 완료!</h1>
-      <p class="subtitle">아래 카드를 캡처해서 나한테 보내줘 ❤️</p>
+      <!-- 3. 약속 잡고 나서 튀어나오는 최종 축하 사진 -->
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3ZyeG92NWFqNG9ycHZjcGV1MW5jcHlyOTRsa3gzaHN5NDMzbzUzeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TdfyKrN7HGTIY/giphy.gif" alt="약속 확정 축하 사진" class="step-img">
+      
+      <h1>데이트 약속 신청 완료! 💕</h1>
+      <p class="subtitle">아래 카드를 캡처해서 나한테 보내줘!</p>
 
       <div class="summary-box">
         <div class="summary-item">
@@ -284,7 +282,7 @@
         </div>
       </div>
 
-      <p class="notice">💡 화면을 스크린샷(캡처)해서 카톡으로 전달해주면 완벽해!</p>
+      <p class="notice">💡 화면을 스크린샷해서 카톡으로 전달해주면 완벽해!</p>
     </div>
 
   </div>
@@ -292,15 +290,24 @@
   <script>
     const noBtn = document.getElementById('noBtn');
     const yesBtn = document.getElementById('yesBtn');
+    const mainImg = document.getElementById('mainImg');
+
     const step1 = document.getElementById('step1');
     const step2 = document.getElementById('step2');
     const step3 = document.getElementById('step3');
     const dateForm = document.getElementById('dateForm');
 
+    // 아니오 선택하려고 할 때 튀어나오는 삐진/당황 사진 모음 (랜덤 변경)
+    const angryImgs = [
+      "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWlyOHdwaTR3MzhpZGs4dzBwbDlsb2NocmN4ZjRwcmxsODRwYWV6cCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/8vUEXZA2tn5Xz155VN/giphy.gif",
+      "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcmR3aWZ5amIydmdveWR0dGFscTBnMHlxbTFxbmlybHl2aW9xYTRjNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/BEob5062JLyYEGxDee/giphy.gif"
+    ];
+
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('dateInput').value = today;
     document.getElementById('dateInput').min = today;
 
+    // '아니오' 버튼 마우스 오버 / 터치 시 이동 & 사진 교체
     function moveButton() {
       const btnRect = noBtn.getBoundingClientRect();
       const x = Math.random() * (window.innerWidth - btnRect.width - 40) + 20;
@@ -309,6 +316,13 @@
       noBtn.style.position = 'fixed';
       noBtn.style.left = `${x}px`;
       noBtn.style.top = `${y}px`;
+
+      // 아니오 누르려 할 때 사진 교체 + 팝업 애니메이션 리셋
+      const randomImg = angryImgs[Math.floor(Math.random() * angryImgs.length)];
+      mainImg.src = randomImg;
+      mainImg.style.animation = 'none';
+      mainImg.offsetHeight; /* trigger reflow */
+      mainImg.style.animation = 'popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
     }
 
     noBtn.addEventListener('mouseover', moveButton);
@@ -317,15 +331,18 @@
       moveButton();
     });
 
+    // 1단계 -> 2단계 이동
     yesBtn.addEventListener('click', () => {
       step1.classList.remove('active');
       step2.classList.add('active');
     });
 
+    // 2단계 -> 3단계 이동
     dateForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
       const dateVal = document.getElementById('dateInput').value;
+      const ampmVal = document.getElementById('ampm').value;
       const timeVal = document.getElementById('timeInput').value;
       const memoVal = document.getElementById('memoInput').value;
 
@@ -333,7 +350,7 @@
                                      .map(cb => cb.value);
 
       document.getElementById('resDate').textContent = dateVal;
-      document.getElementById('resTime').textContent = timeVal;
+      document.getElementById('resTime').textContent = `${ampmVal} ${timeVal}`;
       document.getElementById('resActivities').textContent = checkedActivities.length > 0 ? checkedActivities.join(', ') : '자유 일정!';
 
       if (memoVal.trim() !== '') {
