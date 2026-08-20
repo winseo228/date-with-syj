@@ -197,9 +197,9 @@
 
     <!-- STEP 1: 데이트 신청 -->
     <div id="step1" class="step active">
-      <img id="yes.jpg" src="yes.jpg" alt="yes.jpg" class="step-img">
+      <img id="mainImg" src="yes.jpg" alt="데이트 신청 사진" class="step-img">
       
-      <h1>나랑 데이트해 줄 거야? ❤️</h1>
+      <h1>이번 기념일에 나랑 데이트해 줄 거야? ❤️</h1>
       <p class="subtitle">선택의 여지는 없지만 골라봐!</p>
       
       <div class="btn-group">
@@ -210,9 +210,9 @@
 
     <!-- STEP 2: 날짜 & 시간 선택 -->
     <div id="step2" class="step">
-      <img id="step2Img" src="yes.jpg" alt="데이트 승낙 사진" class="step-img">
+      <img id="step2Img" src="date_plan.jpg" alt="데이트 일정 정할 때 사진" class="step-img">
       
-      <h1>야호! 데이트 일정 정하자! 🎉</h1>
+      <h1>우리 신나게 데이트하자! 🎉</h1>
       <p class="subtitle">원하는 날짜와 하고 싶은 걸 알려줘</p>
 
       <form id="dateForm">
@@ -253,9 +253,9 @@
 
     <!-- STEP 3: 최종 약속 확정 -->
     <div id="step3" class="step">
-      <img id="step3Img" src="yes.jpg" alt="yes.jpg" class="step-img">
+      <img id="step3Img" src="date_final.jpg" alt="데이트 승낙 이후 사진" class="step-img">
       
-      <h1>데이트 약속 신청 완료! 💕</h1>
+      <h1>사랑해애 워매~ 💕</h1>
       <p class="subtitle">아래 카드를 캡처해서 나한테 보내줘!</p>
 
       <div class="summary-box">
@@ -320,18 +320,18 @@
       moveButton();
     });
 
-    // '응, 좋아!' 눌렀을 때 2단계 사진을 yes.jpg로 강제 갱신
+    // 2단계 이동
     yesBtn.addEventListener('click', () => {
-      step2Img.src = 'yes.jpg'; // 사진 강제 적용
+      step2Img.src = 'date_plan.jpg';
       step1.classList.remove('active');
       step2.classList.add('active');
     });
 
-    // 약속 신청 완료 버튼 눌렀을 때 3단계 사진을 yes.jpg로 강제 갱신
+    // 3단계 이동
     dateForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      step3Img.src = 'yes.jpg'; // 사진 강제 적용
+      step3Img.src = 'date_final.jpg';
 
       const dateVal = document.getElementById('dateInput').value;
       const ampmVal = document.getElementById('ampm').value;
