@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>우리 데이트하자!! 💌</title>
+  <title>우리 기념일에 데이트하자 💌</title>
   <style>
     * {
       box-sizing: border-box;
@@ -121,12 +121,7 @@
       margin-bottom: 8px;
     }
 
-    .time-picker {
-      display: flex;
-      gap: 8px;
-    }
-
-    select, input[type="date"], input[type="time"], input[type="text"] {
+    input[type="date"], input[type="time"], input[type="text"] {
       width: 100%;
       padding: 12px;
       border: 1.5px solid #eee;
@@ -135,9 +130,6 @@
       outline: none;
       background: white;
     }
-
-    select { width: 35%; cursor: pointer; }
-    input[type="time"] { width: 65%; }
 
     .checkbox-grid {
       display: grid;
@@ -222,14 +214,9 @@
         </div>
 
         <div class="form-group">
-          <label>⏰ 만나고 싶은 시간</label>
-          <div class="time-picker">
-            <select id="ampm">
-              <option value="오전">오전</option>
-              <option value="오후" selected>오후</option>
-            </select>
-            <input type="time" id="timeInput" value="01:00" required>
-          </div>
+          <label for="timeInput">⏰ 만나고 싶은 시간</label>
+          <!-- 시간 입력창 1개만 배치 -->
+          <input type="time" id="timeInput" value="13:00" required>
         </div>
 
         <div class="form-group">
@@ -255,7 +242,7 @@
     <div id="step3" class="step">
       <img id="step3Img" src="date_final.jpg" alt="데이트 승낙 이후 사진" class="step-img">
       
-      <h1>우리 신나게 데이트하자 사랑해애 워매~ 💕</h1>
+      <h1>사랑해애 워매~ 💕</h1>
       <p class="subtitle">아래 카드를 캡처해서 나한테 보내줘!</p>
 
       <div class="summary-box">
@@ -331,15 +318,24 @@
       step3Img.src = 'date_final.jpg';
 
       const dateVal = document.getElementById('dateInput').value;
-      const ampmVal = document.getElementById('ampm').value;
       const timeVal = document.getElementById('timeInput').value;
       const memoVal = document.getElementById('memoInput').value;
+
+      // 시간을 오전/오후 보기 좋게 변환
+      let formattedTime = timeVal;
+      if (timeVal) {
+        const [hours, minutes] = timeVal.split(':');
+        let h = parseInt(hours, 10);
+        const ampm = h >= 12 ? '오후' : '오전';
+        h = h % 12 || 12;
+        formattedTime = `${ampm} ${h}:${minutes}`;
+      }
 
       const checkedActivities = Array.from(document.querySelectorAll('input[name="activity"]:checked'))
                                      .map(cb => cb.value);
 
       document.getElementById('resDate').textContent = dateVal;
-      document.getElementById('resTime').textContent = `${ampmVal} ${timeVal}`;
+      document.getElementById('resTime').textContent = formattedTime;
       document.getElementById('resActivities').textContent = checkedActivities.length > 0 ? checkedActivities.join(', ') : '자유 일정!';
 
       if (memoVal.trim() !== '') {
