@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>우리 데이트하자 💌</title>
+  <title>우리 기념일에 데이트하자 💌</title>
   <style>
     * {
       box-sizing: border-box;
@@ -298,7 +298,6 @@
     document.getElementById('dateInput').value = today;
     document.getElementById('dateInput').min = today;
 
-    // '아니오' 버튼 선택하려고 할 때 도망치며 no.jpg 로 변경
     function moveButton() {
       const btnRect = noBtn.getBoundingClientRect();
       const x = Math.random() * (window.innerWidth - btnRect.width - 40) + 20;
@@ -320,14 +319,12 @@
       moveButton();
     });
 
-    // 2단계 이동
     yesBtn.addEventListener('click', () => {
       step2Img.src = 'date_plan.jpg';
       step1.classList.remove('active');
       step2.classList.add('active');
     });
 
-    // 3단계 이동
     dateForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
