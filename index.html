@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>우리 데이트하자 💌</title>
+  <title>우리 기념일에 데이트하자 💌</title>
   <style>
     * {
       box-sizing: border-box;
@@ -32,10 +32,9 @@
       position: relative;
     }
 
-    /* 이미지 스타일 */
     .step-img {
-      width: 160px;
-      height: 160px;
+      width: 180px;
+      height: 180px;
       object-fit: cover;
       border-radius: 20px;
       margin-bottom: 15px;
@@ -122,7 +121,6 @@
       margin-bottom: 8px;
     }
 
-    /* 시간 선택 (오전/오후 + 시:분) 스타일 */
     .time-picker {
       display: flex;
       gap: 8px;
@@ -199,10 +197,10 @@
 
     <!-- STEP 1: 데이트 신청 -->
     <div id="step1" class="step active">
-      <!-- 1. 처음 데이트 신청 시 튀어나오는 사진 -->
-      <img id="mainImg" src="" alt="Rename 네 라고 했을 때 my-pic.jpg to 네 라고 했을 때 my-pic.JPG" class="step-img">
+      <!-- 기본 초기 사진 (파란 옷) -->
+      <img id="mainImg" src="yes.jpg" alt="데이트 신청 사진" class="step-img">
       
-      <h1>나랑 데이트해 줄 거야? ❤️</h1>
+      <h1>이번 기념일에 나랑 데이트해 줄 거야? ❤️</h1>
       <p class="subtitle">선택의 여지는 없지만 골라봐!</p>
       
       <div class="btn-group">
@@ -211,10 +209,10 @@
       </div>
     </div>
 
-    <!-- STEP 2: 날짜 & 시간(오전/오후) 선택 -->
+    <!-- STEP 2: 날짜 & 시간 선택 -->
     <div id="step2" class="step">
-      <!-- 2. 데이트 승낙 후 세부 일정 정할 때 나오는 사진 -->
-      <img src="네 라고 했을 때 my-pic.jpg" alt="좋아하는 사진" class="step-img">
+      <!-- 데이트 승낙 시 나오는 파란 옷 사진 -->
+      <img src="yes.jpg" alt="데이트 승낙 사진" class="step-img">
       
       <h1>야호! 데이트 일정 정하자! 🎉</h1>
       <p class="subtitle">원하는 날짜와 하고 싶은 걸 알려줘</p>
@@ -248,7 +246,7 @@
 
         <div class="form-group">
           <label for="memoInput">💭 가고 싶은 곳이나 먹고 싶은 것</label>
-          <input type="text" id="memoInput" placeholder="예: 오마카세, 한강 공원 등!">
+          <input type="text" id="memoInput" placeholder="예: 맛있는 음식, 예쁜 카페 등!">
         </div>
 
         <button type="submit" class="primary-btn">약속 신청 완료하기 💌</button>
@@ -257,8 +255,8 @@
 
     <!-- STEP 3: 최종 약속 확정 -->
     <div id="step3" class="step">
-      <!-- 3. 약속 잡고 나서 튀어나오는 최종 축하 사진 -->
-      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3ZyeG92NWFqNG9ycHZjcGV1MW5jcHlyOTRsa3gzaHN5NDMzbzUzeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TdfyKrN7HGTIY/giphy.gif" alt="약속 확정 축하 사진" class="step-img">
+      <!-- 최종 완료 시 나오는 파란 옷 사진 -->
+      <img src="yes.jpg" alt="약속 확정 축하 사진" class="step-img">
       
       <h1>데이트 약속 신청 완료! 💕</h1>
       <p class="subtitle">아래 카드를 캡처해서 나한테 보내줘!</p>
@@ -282,7 +280,7 @@
         </div>
       </div>
 
-      <p class="notice">💡 화면을 스크린샷해서 카톡으로 전달해주면 완벽해!</p>
+      <p class="notice">💡 화면을 스크린샷해서 전달해주면 완벽해!</p>
     </div>
 
   </div>
@@ -297,16 +295,11 @@
     const step3 = document.getElementById('step3');
     const dateForm = document.getElementById('dateForm');
 
-    // 아니오 선택하려고 할 때 튀어나오는 삐진/당황 사진 
-    const angryImgs = [
-      "아니오 선택할려고 할때 my-pic.JPG"
-    ];
-
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('dateInput').value = today;
     document.getElementById('dateInput').min = today;
 
-    // '아니오' 버튼 마우스 오버 / 터치 시 이동 & 사진 움직임
+    // '아니오' 버튼 선택하려고 다가가면 검은 옷 사진(no.jpg)으로 변경되면서 도망
     function moveButton() {
       const btnRect = noBtn.getBoundingClientRect();
       const x = Math.random() * (window.innerWidth - btnRect.width - 40) + 20;
@@ -316,11 +309,10 @@
       noBtn.style.left = `${x}px`;
       noBtn.style.top = `${y}px`;
 
-      // 아니오 누르려 할 때 사진 교체 + 팝업 애니메이션 리셋
-      const randomImg = angryImgs[Math.floor(Math.random() * angryImgs.length)];
-      mainImg.src = randomImg;
+      // 아니오 누르려 할 때 검은 옷 사진으로 교체
+      mainImg.src = 'no.jpg';
       mainImg.style.animation = 'none';
-      mainImg.offsetHeight; /* trigger reflow */
+      mainImg.offsetHeight;
       mainImg.style.animation = 'popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
     }
 
@@ -330,13 +322,11 @@
       moveButton();
     });
 
-    // 1단계 -> 2단계 이동
     yesBtn.addEventListener('click', () => {
       step1.classList.remove('active');
       step2.classList.add('active');
     });
 
-    // 2단계 -> 3단계 이동
     dateForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
