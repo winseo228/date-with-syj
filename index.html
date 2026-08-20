@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>우리 데이트하자! 💌</title>
+  <title>우리 기념일에 데이트하자 💌</title>
   <style>
     * {
       box-sizing: border-box;
@@ -197,10 +197,9 @@
 
     <!-- STEP 1: 데이트 신청 -->
     <div id="step1" class="step active">
-      <!-- 기본 초기 사진 (파란 옷) -->
       <img id="mainImg" src="yes.jpg" alt="데이트 신청 사진" class="step-img">
       
-      <h1>나랑 데이트해 줄 거야? ❤️</h1>
+      <h1>이번 기념일에 나랑 데이트해 줄 거야? ❤️</h1>
       <p class="subtitle">선택의 여지는 없지만 골라봐!</p>
       
       <div class="btn-group">
@@ -211,8 +210,7 @@
 
     <!-- STEP 2: 날짜 & 시간 선택 -->
     <div id="step2" class="step">
-      <!-- 데이트 승낙 시 나오는 파란 옷 사진 -->
-      <img src="yes.jpg" alt="yes.jpg" class="step-img">
+      <img id="step2Img" src="yes.jpg" alt="데이트 승낙 사진" class="step-img">
       
       <h1>야호! 데이트 일정 정하자! 🎉</h1>
       <p class="subtitle">원하는 날짜와 하고 싶은 걸 알려줘</p>
@@ -255,8 +253,7 @@
 
     <!-- STEP 3: 최종 약속 확정 -->
     <div id="step3" class="step">
-      <!-- 최종 완료 시 나오는 파란 옷 사진 -->
-      <img src="yes.jpg" alt="약속 확정 축하 사진" class="step-img">
+      <img id="step3Img" src="yes.jpg" alt="약속 확정 축하 사진" class="step-img">
       
       <h1>데이트 약속 신청 완료! 💕</h1>
       <p class="subtitle">아래 카드를 캡처해서 나한테 보내줘!</p>
@@ -289,6 +286,8 @@
     const noBtn = document.getElementById('noBtn');
     const yesBtn = document.getElementById('yesBtn');
     const mainImg = document.getElementById('mainImg');
+    const step2Img = document.getElementById('step2Img');
+    const step3Img = document.getElementById('step3Img');
 
     const step1 = document.getElementById('step1');
     const step2 = document.getElementById('step2');
@@ -299,7 +298,7 @@
     document.getElementById('dateInput').value = today;
     document.getElementById('dateInput').min = today;
 
-    // '아니오' 버튼 선택하려고 다가가면 검은 옷 사진(no.jpg)으로 변경되면서 도망
+    // '아니오' 버튼 선택하려고 할 때 도망치며 no.jpg 로 변경
     function moveButton() {
       const btnRect = noBtn.getBoundingClientRect();
       const x = Math.random() * (window.innerWidth - btnRect.width - 40) + 20;
@@ -309,7 +308,6 @@
       noBtn.style.left = `${x}px`;
       noBtn.style.top = `${y}px`;
 
-      // 아니오 누르려 할 때 검은 옷 사진으로 교체
       mainImg.src = 'no.jpg';
       mainImg.style.animation = 'none';
       mainImg.offsetHeight;
@@ -322,13 +320,18 @@
       moveButton();
     });
 
+    // '응, 좋아!' 눌렀을 때 2단계 사진을 yes.jpg로 강제 갱신
     yesBtn.addEventListener('click', () => {
+      step2Img.src = 'yes.jpg'; // 사진 강제 적용
       step1.classList.remove('active');
       step2.classList.add('active');
     });
 
+    // 약속 신청 완료 버튼 눌렀을 때 3단계 사진을 yes.jpg로 강제 갱신
     dateForm.addEventListener('submit', (e) => {
       e.preventDefault();
+
+      step3Img.src = 'yes.jpg'; // 사진 강제 적용
 
       const dateVal = document.getElementById('dateInput').value;
       const ampmVal = document.getElementById('ampm').value;
