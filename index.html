@@ -214,7 +214,7 @@
     <!-- STEP 2: 날짜 & 시간(오전/오후) 선택 -->
     <div id="step2" class="step">
       <!-- 2. 데이트 승낙 후 세부 일정 정할 때 나오는 사진 -->
-      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExODlhZnAxcTBscTVvZHB4bXJwbHN2ZzhkYXdqbzByd3ByZWtwYXR5ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif" alt="좋아하는 사진" class="step-img">
+      <img src="네 라고 했을 때 my-pic.jpg" alt="좋아하는 사진" class="step-img">
       
       <h1>야호! 데이트 일정 정하자! 🎉</h1>
       <p class="subtitle">원하는 날짜와 하고 싶은 걸 알려줘</p>
@@ -297,17 +297,16 @@
     const step3 = document.getElementById('step3');
     const dateForm = document.getElementById('dateForm');
 
-    // 아니오 선택하려고 할 때 튀어나오는 삐진/당황 사진 모음 (랜덤 변경)
+    // 아니오 선택하려고 할 때 튀어나오는 삐진/당황 사진 
     const angryImgs = [
-      "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWlyOHdwaTR3MzhpZGs4dzBwbDlsb2NocmN4ZjRwcmxsODRwYWV6cCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/8vUEXZA2tn5Xz155VN/giphy.gif",
-      "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcmR3aWZ5amIydmdveWR0dGFscTBnMHlxbTFxbmlybHl2aW9xYTRjNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/BEob5062JLyYEGxDee/giphy.gif"
+      "아니오 선택할려고 할때 my-pic.jpg"
     ];
 
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('dateInput').value = today;
     document.getElementById('dateInput').min = today;
 
-    // '아니오' 버튼 마우스 오버 / 터치 시 이동 & 사진 교체
+    // '아니오' 버튼 마우스 오버 / 터치 시 이동 & 사진 움직임
     function moveButton() {
       const btnRect = noBtn.getBoundingClientRect();
       const x = Math.random() * (window.innerWidth - btnRect.width - 40) + 20;
